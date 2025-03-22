@@ -1,0 +1,51 @@
+<section class="relative flex items-center justify-center bg-cover bg-center h-[88vh] -mt-12" 
+         style="background-image: url('{{ "/images/sueymaniye-mosque-istanbul-hero-D.webp" | absURL }}'); width: 100vw; margin-left: calc(50% - 50vw); padding-top: 0;">
+  <div class="flex flex-col items-center justify-center w-full px-4">
+    <h1 class="text-white text-4xl md:text-5xl font-bold text-center mb-4 mt-16 text-shadow-lg">Welcome to Serendipity Tours</h1>
+    <p class="text-white text-lg md:text-xl text-center mb-8 max-w-2xl text-shadow-md">Discover unforgettable experiences around the world.</p>
+    <a href="/tours" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg text-lg font-semibold transition-colors duration-300">
+      Explore Our Tours
+    </a>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const heroSection = document.querySelector('section');
+    
+    function updateBackground() {
+      if (window.innerWidth <= 768) {
+        if (window.innerHeight > window.innerWidth) {
+          // Portrait mobile
+          heroSection.style.backgroundImage = "url('{{ "/images/sueymaniye-mosque-istanbul-hero-T.webp" | absURL }}')";
+          heroSection.style.height = "66vh";
+        } else {
+          // Landscape mobile
+          heroSection.style.backgroundImage = "url('{{ "/images/sueymaniye-mosque-istanbul-hero-M.webp" | absURL }}')";
+          heroSection.style.height = "66vh";
+        }
+      } else {
+        // Desktop
+        heroSection.style.backgroundImage = "url('{{ "/images/sueymaniye-mosque-istanbul-hero-D.webp" | absURL }}')";
+        heroSection.style.height = "88vh";
+      }
+    }
+    
+    // Run on page load
+    updateBackground();
+    
+    // Run on window resize
+    window.addEventListener('resize', updateBackground);
+  });
+</script>
+
+<style>
+  /* Add text shadow to ensure text is readable on bright backgrounds */
+  .text-shadow-lg {
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8), 0 4px 8px rgba(0,0,0,0.6);
+  }
+  
+  .text-shadow-md {
+    text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+  }
+</style>

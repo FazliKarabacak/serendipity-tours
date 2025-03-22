@@ -1,0 +1,151 @@
+<!-- layouts/partials/head.html -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ if .IsHome }}{{ .Site.Title }} - Unforgettable Travel Experiences{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+<meta name="description" content="{{ if .Description }}{{ .Description }}{{ else }}Discover unforgettable travel experiences with Serendipity Tours.{{ end }}">
+
+<!-- Canonical URL -->
+<link rel="canonical" href="{{ .Permalink }}">
+
+<!-- Google Analytics -->
+{{ partial "analytics.html" . }}
+
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:title" content="{{ if .IsHome }}{{ .Site.Title }} - Unforgettable Travel Experiences{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}">
+<meta property="og:description" content="{{ if .Description }}{{ .Description }}{{ else }}Discover unforgettable travel experiences with Serendipity Tours.{{ end }}">
+{{ if .Params.image }}<meta property="og:image" content="{{ .Site.BaseURL }}{{ .Params.image }}">{{ end }}
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="{{ .Permalink }}">
+<meta name="twitter:title" content="{{ if .IsHome }}{{ .Site.Title }} - Unforgettable Travel Experiences{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}">
+<meta name="twitter:description" content="{{ if .Description }}{{ .Description }}{{ else }}Discover unforgettable travel experiences with Serendipity Tours.{{ end }}">
+{{ if .Params.image }}<meta name="twitter:image" content="{{ .Site.BaseURL }}{{ .Params.image }}">{{ end }}
+
+<!-- Structured Data / Schema.org -->
+{{ if eq .Type "tours" }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TouristTrip",
+  "name": "{{ .Title }}",
+  "description": "{{ .Description }}",
+  {{ if .Params.image }}"image": "{{ .Site.BaseURL }}{{ .Params.image }}",{{ end }}
+  "touristType": [{{ range $index, $tag := .Params.tags }}{{ if $index }}, {{ end }}"{{ . }}"{{ end }}],
+  "duration": "{{ .Params.duration }}",
+  "offers": {
+    "@type": "Offer",
+    "price": "{{ replace (replace (default "" .Params.price) "$" "") " USD" "" }}",
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/InStock",
+    "validFrom": "{{ .Date.Format "2006-01-02" }}"
+  },
+  "provider": {
+    "@type": "Organization",
+    "name": "Serendipity Tours",
+    "sameAs": "{{ .Site.BaseURL }}"
+  },
+  "tourOperator": {
+    "@type": "Organization",
+    "name": "Serendipity Tours Turkey"
+  },
+  "subjectOf": {
+    "@type": "CreativeWork",
+    "spatialCoverage": [
+      {{ range $index, $destination := .Params.destinations }}
+        {{ if $index }},{{ end }}
+        {
+          "@type": "Place",
+          "name": "{{ . }}"
+        }
+      {{ end }}
+    ]
+  }
+}
+</script>
+{{ else if eq .Type "blog" }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "{{ .Title }}",
+  "description": "{{ .Description }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ .Params.author | default "Serendipity Tours Team" }}"
+  },
+  {{ if .Params.image }}"image": "{{ .Site.BaseURL }}{{ .Params.image }}",{{ end }}
+  "datePublished": "{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}",
+  {{ if .Lastmod }}"dateModified": "{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}",{{ end }}
+  "publisher": {
+    "@type": "Organization",
+    "name": "Serendipity Tours",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ .Site.BaseURL }}images/favicon.png"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ .Permalink }}"
+  },
+  "keywords": [{{ range $index, $tag := .Params.tags }}{{ if $index }}, {{ end }}"{{ . }}"{{ end }}]
+}
+</script>
+{{ else if .IsHome }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Serendipity Tours",
+  "url": "{{ .Site.BaseURL }}",
+  "logo": "{{ .Site.BaseURL }}images/favicon.png",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+90-212-555-1234",
+    "contactType": "customer service",
+    "availableLanguage": ["English", "Turkish"]
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "url": "{{ .Site.BaseURL }}",
+  "name": "{{ .Site.Title }}",
+  "description": "{{ .Site.Params.description | default "Discover unforgettable travel experiences with Serendipity Tours." }}",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "{{ .Site.BaseURL }}search?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+{{ else if eq .Type "page" }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "{{ .Title }}",
+  "description": "{{ .Description }}",
+  {{ if .Params.image }}"image": "{{ .Site.BaseURL }}{{ .Params.image }}",{{ end }}
+  "url": "{{ .Permalink }}"
+  {{ if .Lastmod }}, "lastReviewed": "{{ .Lastmod.Format "2006-01-02" }}"{{ end }}
+}
+</script>
+{{ end }}
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="{{ .Site.BaseURL }}images/favicon.png">
+
+<!-- Tailwind CSS -->
+<link rel="stylesheet" href="/css/style.css">
+
+<!-- Add fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">

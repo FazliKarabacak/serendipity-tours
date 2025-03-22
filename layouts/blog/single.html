@@ -1,0 +1,186 @@
+{{ define "main" }}
+<article class="-mt-12"> <!-- Negative margin to pull content up -->
+  <!-- Hero section positioned immediately below header -->
+  <div class="relative" style="margin-top: 0; padding-top: 0;">
+    {{ if .Params.image }}
+    <div class="h-96 bg-cover bg-center" style="background-image: url('{{ .Params.image }}');"></div>
+    {{ else }}
+    <div class="h-96 bg-cover bg-center" style="background-image: url('/images/default-blog-image.jpg');"></div>
+    {{ end }}
+    <div class="absolute inset-0 bg-blue-600 bg-opacity-40 flex items-center justify-center">
+      <div class="text-center text-white px-4 max-w-4xl">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">{{ .Title }}</h1>
+        <p class="text-xl md:text-2xl">{{ .Description }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main content -->
+  <div class="container mx-auto px-4 py-12">
+    <!-- Custom styled markdown content -->
+    <div class="markdown-content">
+      <!-- Apply custom styles to the content -->
+      <style>
+        /* Level 2 headings (##) */
+        .markdown-content h2 {
+          font-size: 1.75rem;
+          font-weight: 700;
+          color: #1f2937; /* text-gray-800 */
+          margin-top: 2rem;
+          margin-bottom: 1rem;
+          padding-bottom: 0.5rem;
+          border-bottom: 1px solid #e5e7eb;
+        }
+        
+        /* Level 3 headings (###) */
+        .markdown-content h3 {
+          font-size: 1.5rem;
+          font-weight: 600;
+          color: #1f2937; /* text-gray-800 */
+          margin-top: 1.5rem;
+          margin-bottom: 0.75rem;
+        }
+        
+        /* Paragraphs */
+        .markdown-content p {
+          margin-bottom: 1.25rem;
+          line-height: 1.7;
+          color: #374151; /* text-gray-700 */
+        }
+        
+        /* Unordered lists */
+        .markdown-content ul {
+          list-style-type: disc;
+          padding-left: 1.5rem;
+          margin-bottom: 1.5rem;
+          margin-top: 0.5rem;
+        }
+        
+        /* Ordered lists */
+        .markdown-content ol {
+          list-style-type: decimal;
+          padding-left: 1.5rem;
+          margin-bottom: 1.5rem;
+          margin-top: 0.5rem;
+        }
+        
+        /* List items */
+        .markdown-content li {
+          margin-bottom: 0.5rem;
+          color: #374151; /* text-gray-700 */
+        }
+        
+        /* Bold text */
+        .markdown-content strong {
+          font-weight: 700;
+          color: #111827; /* text-gray-900 */
+        }
+        
+        /* Links */
+        .markdown-content a {
+          color: #2563eb; /* text-blue-600 */
+          text-decoration: none;
+          font-weight: 500;
+        }
+        
+        .markdown-content a:hover {
+          text-decoration: underline;
+          color: #1d4ed8; /* text-blue-700 */
+        }
+        
+        /* Blog metadata */
+        .markdown-content .blog-meta {
+          display: flex;
+          align-items: center;
+          margin-bottom: 2rem;
+          font-size: 0.875rem;
+          color: #6b7280; /* text-gray-500 */
+        }
+        
+        /* Table styles */
+        .markdown-content table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-bottom: 1.5rem;
+          border: 1px solid #e5e7eb;
+        }
+        
+        .markdown-content table th {
+          background-color: #f3f4f6;
+          font-weight: 600;
+          padding: 0.75rem;
+          text-align: left;
+          border: 1px solid #e5e7eb;
+        }
+        
+        .markdown-content table td {
+          padding: 0.75rem;
+          border: 1px solid #e5e7eb;
+        }
+        
+        /* Blockquotes */
+        .markdown-content blockquote {
+          border-left: 4px solid #3b82f6; /* border-blue-500 */
+          padding-left: 1rem;
+          font-style: italic;
+          color: #4b5563; /* text-gray-600 */
+          margin: 1.5rem 0;
+        }
+      </style>
+      {{ .Content }}
+    </div>
+  </div>
+
+  <!-- Author info box -->
+  <div class="container mx-auto px-4 mb-12">
+    <div class="bg-blue-50 border border-blue-100 rounded-lg p-6">
+      <h3 class="text-xl font-bold text-gray-800 mb-2">About the Author</h3>
+      <p class="text-gray-700 mb-4">{{ if .Params.author }}{{ .Params.author }}{{ else }}Serendipity Tours Team{{ end }}</p>
+      <p class="text-gray-700">Our travel experts share their insights and experiences to help you discover the authentic treasures of Turkey.</p>
+    </div>
+  </div>
+
+  <!-- Related blog posts -->
+  <div class="bg-gray-100 py-12">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-8">Related Blog Posts</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {{ $currentPage := . }}
+        {{ range first 3 (where (where .Site.RegularPages "Section" "blog") "Permalink" "ne" .Permalink) }}
+        <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg hover:-translate-y-1">
+          {{ if .Params.image }}
+          <img src="{{ .Params.image }}" alt="{{ .Title }}" class="w-full h-48 object-cover">
+          {{ else }}
+          <div class="bg-gray-200 h-48 flex items-center justify-center">
+            <span class="text-gray-500">No image available</span>
+          </div>
+          {{ end }}
+          <div class="p-6">
+            <h3 class="text-xl font-bold mb-2">{{ .Title }}</h3>
+            <p class="text-gray-700 mb-4 line-clamp-3">{{ .Description }}</p>
+            <a href="{{ .Permalink }}" class="text-blue-600 font-medium hover:text-blue-800">Read More →</a>
+          </div>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA Section -->
+  <div class="bg-blue-600 text-white py-16">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold mb-4">Experience Turkey for Yourself</h2>
+      <p class="text-xl mb-8 max-w-3xl mx-auto">Join our expertly guided tours to see the wonders of Göbeklitepe and other fascinating archaeological sites throughout Turkey.</p>
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a href="/tours" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+          Browse Our Tours
+        </a>
+        <a href="/contact" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors">
+          Contact Us
+        </a>
+      </div>
+    </div>
+  </div>
+</article>
+{{ end }}

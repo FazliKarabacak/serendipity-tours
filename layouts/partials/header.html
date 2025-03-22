@@ -1,0 +1,55 @@
+<!-- layouts/partials/header.html -->
+<header class="fixed top-0 w-full z-50 bg-white bg-opacity-90 shadow-sm transition-all duration-300 site-header">
+  <div class="container mx-auto px-6 py-4">
+    <nav class="flex justify-between items-center">
+      <a href="{{ .Site.BaseURL }}" class="text-blue-600 hover:text-blue-500 text-2xl font-bold transition-transform duration-300 transform hover:scale-105">Serendipity Tours</a>
+      
+      <!-- Desktop menu -->
+      <div class="hidden md:flex space-x-6">
+        <a href="{{ .Site.BaseURL }}" class="text-blue-600 hover:text-blue-500 text-lg font-bold transition-transform duration-300 transform hover:scale-105">Home</a>
+        <a href="{{ .Site.BaseURL }}tours" class="text-blue-600 hover:text-blue-500 text-lg font-bold transition-transform duration-300 transform hover:scale-105">Tours</a>
+        <a href="{{ .Site.BaseURL }}blog" class="text-blue-600 hover:text-blue-500 text-lg font-bold transition-transform duration-300 transform hover:scale-105">Blog</a>
+        <a href="{{ .Site.BaseURL }}about" class="text-blue-600 hover:text-blue-500 text-lg font-bold transition-transform duration-300 transform hover:scale-105">About</a>
+        <a href="{{ .Site.BaseURL }}terms" class="text-blue-600 hover:text-blue-500 text-lg font-bold transition-transform duration-300 transform hover:scale-105">Terms</a>
+        <a href="{{ .Site.BaseURL }}contact" class="text-blue-600 hover:text-blue-500 text-lg font-bold transition-transform duration-300 transform hover:scale-105">Contact</a>
+      </div>
+      
+      <!-- Mobile menu button -->
+      <button id="mobile-menu-button" class="md:hidden text-blue-600 hover:text-blue-500 focus:outline-none" aria-label="Toggle menu">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </nav>
+    
+    <!-- Mobile menu (hidden by default) -->
+    <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4 transition-all duration-300 ease-in-out">
+      <div class="flex flex-col space-y-3">
+        <a href="{{ .Site.BaseURL }}" class="text-blue-600 hover:text-blue-500 text-lg font-bold py-2 border-b border-gray-100">Home</a>
+        <a href="{{ .Site.BaseURL }}tours" class="text-blue-600 hover:text-blue-500 text-lg font-bold py-2 border-b border-gray-100">Tours</a>
+        <a href="{{ .Site.BaseURL }}blog" class="text-blue-600 hover:text-blue-500 text-lg font-bold py-2 border-b border-gray-100">Blog</a>
+        <a href="{{ .Site.BaseURL }}about" class="text-blue-600 hover:text-blue-500 text-lg font-bold py-2 border-b border-gray-100">About</a>
+        <a href="{{ .Site.BaseURL }}terms" class="text-blue-600 hover:text-blue-500 text-lg font-bold py-2 border-b border-gray-100">Terms</a>
+        <a href="{{ .Site.BaseURL }}contact" class="text-blue-600 hover:text-blue-500 text-lg font-bold py-2">Contact</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- This script helps calculate and expose the header height -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const header = document.querySelector('.site-header');
+    const headerHeight = header.offsetHeight;
+    
+    // Expose the header height as a CSS variable
+    document.documentElement.style.setProperty('--header-height', `${headerHeight}px`);
+  });
+  
+  // Update on resize
+  window.addEventListener('resize', function() {
+    const header = document.querySelector('.site-header');
+    const headerHeight = header.offsetHeight;
+    document.documentElement.style.setProperty('--header-height', `${headerHeight}px`);
+  });
+</script>

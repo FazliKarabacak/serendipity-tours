@@ -1,0 +1,127 @@
+<div class="bg-white p-8 rounded-lg shadow-md">
+  <h2 class="text-2xl font-semibold mb-6 text-gray-700">Send Us a Message</h2>
+  
+  <form action="https://formspree.io/f/xrbppvek" method="POST" class="space-y-6" id="contactForm">
+    <!-- Hidden fields for Formspree configuration -->
+    <input type="hidden" name="_replyto" value="info@serendipitytours.com.au">
+    <input type="hidden" name="_subject" value="New Tour Booking Inquiry">
+    <input type="hidden" name="_cc" value="info@serendipitytours.com.au">
+    
+    <!-- Thank you page redirect -->
+    <input type="hidden" name="_next" value="https://serendipitytours.com.au/thank-you">
+    <input type="hidden" name="_target" value="_blank">
+    
+    <!-- Honeypot field for spam protection -->
+    <div style="display:none;">
+      <label for="hp">Leave this field empty</label>
+      <input type="text" name="_gotcha" id="hp">
+    </div>
+    
+    <div>
+      <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+      <input type="text" id="name" name="name" required 
+            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
+    </div>
+    
+    <div>
+      <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+      <input type="email" id="email" name="email" required 
+            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
+    </div>
+    
+    <div>
+      <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number (optional)</label>
+      <input type="tel" id="phone" name="phone" 
+            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
+    </div>
+    
+    <div>
+      <label for="travel_date" class="block text-sm font-medium text-gray-700 mb-1">Planned Travel Date (optional)</label>
+      <input type="date" id="travel_date" name="travel_date" 
+            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
+    </div>
+    
+    <div>
+      <label for="tour_type" class="block text-sm font-medium text-gray-700 mb-1">Type of Tour</label>
+      <select id="tour_type" name="tour_type" 
+             class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
+        <option value="" selected disabled>Please select</option>
+        <option value="treasures-of-turkey">Treasures of Turkey Tour - 14 Days</option>
+        <option value="best-of-turkey">Best of Turkey Tour - 11 Days</option>
+        <option value="western-turkey">Western Turkey Tour - 12 Days</option>
+        <option value="odyssey-turkey">Odyssey Turkey Tour - 16 Days</option>
+        <option value="eastern-turkey-black-sea">Eastern Turkey & Black Sea Coast Tour - 16 Days</option>
+        <option value="grand-turkey">Grand Turkey Tour - 23 Days</option>
+        <option value="custom">Custom Tour</option>
+      </select>
+    </div>
+    
+    <div>
+      <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Your Message</label>
+      <textarea id="message" name="message" rows="4" required
+               class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+    </div>
+    
+    <div>
+      <button type="submit" 
+             class="w-full bg-indigo-600 text-white py-3 px-4 rounded-md font-medium hover:bg-indigo-700 transition-colors">
+        Send Message
+      </button>
+    </div>
+  </form>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Function to get URL parameters
+  function getUrlParameter(name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    var results = regex.exec(location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+  }
+  
+  // Get the tour and tourName parameters from the URL
+  var tourParam = getUrlParameter('tour');
+  var tourName = getUrlParameter('tourName');
+  
+  if (tourParam && tourName) {
+    // Get the tour_type select element
+    var tourTypeSelect = document.getElementById('tour_type');
+    
+    // First check if the tour ID exists as a value in the dropdown
+    var found = false;
+    for (var i = 0; i < tourTypeSelect.options.length; i++) {
+      if (tourTypeSelect.options[i].value === tourParam) {
+        tourTypeSelect.selectedIndex = i;
+        found = true;
+        break;
+      }
+    }
+    
+    // If not found, see if we need to add it as a new option
+    if (!found) {
+      // Create a new option for this specific tour
+      var newOption = document.createElement('option');
+      newOption.value = tourParam;
+      newOption.text = tourName;
+      newOption.selected = true;
+      
+      // Add it to the select element
+      tourTypeSelect.add(newOption, 1); // Add it as the second option (after the "Please select")
+    }
+    
+    // Also add the tour name to the message with a friendly intro
+    var messageArea = document.getElementById('message');
+    if (messageArea && messageArea.value === '') {
+      messageArea.value = 'I\'m interested in booking the ' + tourName + ' tour. Please provide me with more information.';
+    }
+    
+    // Update subject line with the specific tour
+    var subjectField = document.querySelector('input[name="_subject"]');
+    if (subjectField) {
+      subjectField.value = 'New Booking Inquiry: ' + tourName;
+    }
+  }
+});
+</script>

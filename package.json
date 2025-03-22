@@ -1,0 +1,23 @@
+{
+  "name": "serendipity-tours",
+  "version": "1.0.0",
+  "main": "tailwind.config.js",
+  "scripts": {
+  "dev": "hugo server",
+  "build": "hugo --gc --minify",
+  "start": "npx tailwindcss -i assets/css/main.css -o static/css/style.css --watch & hugo server",
+  "buildTailwind": "npx tailwindcss -i assets/css/main.css -o static/css/style.css"
+},
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.3",
+    "postcss-cli": "^11.0.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.0.13"
+  }
+}

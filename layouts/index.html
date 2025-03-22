@@ -1,0 +1,22 @@
+{{ define "main" }}
+  {{ partial "hero.html" . }}
+
+  <section class="container mx-auto px-6 py-10 mt-5 text-center">
+    <h1 class="text-3xl font-bold text-gray-700">{{ .Title }}</h1>
+    <p class="text-xl mt-4 text-gray-700">{{ .Params.description }}</p>
+    <div class="mt-4 text-lg text-gray-700">
+      {{ .Content }}
+    </div>
+  </section>
+
+  {{ partial "cta-tours.html" . }}
+  {{ partial "cta-toursv2.html" . }}
+  {{ partial "cta-blog.html" . }}
+  {{ partial "cta-blogv2.html" . }}
+
+{{ end }}
+
+
+
+
+
