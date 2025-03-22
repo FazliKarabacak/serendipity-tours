@@ -7,10 +7,6 @@
 <!-- Canonical URL -->
 <link rel="canonical" href="{{ .Permalink }}">
 
-<!-- Google Analytics -->
-{{ partial "analytics.html" . }}
-
-
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
 <meta property="og:url" content="{{ .Permalink }}">
@@ -18,12 +14,12 @@
 <meta property="og:description" content="{{ if .Description }}{{ .Description }}{{ else }}Discover unforgettable travel experiences with Serendipity Tours.{{ end }}">
 {{ if .Params.image }}<meta property="og:image" content="{{ .Site.BaseURL }}{{ .Params.image }}">{{ end }}
 
-<!-- Twitter -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:url" content="{{ .Permalink }}">
-<meta name="twitter:title" content="{{ if .IsHome }}{{ .Site.Title }} - Unforgettable Travel Experiences{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}">
-<meta name="twitter:description" content="{{ if .Description }}{{ .Description }}{{ else }}Discover unforgettable travel experiences with Serendipity Tours.{{ end }}">
-{{ if .Params.image }}<meta name="twitter:image" content="{{ .Site.BaseURL }}{{ .Params.image }}">{{ end }}
+<!-- Instagram -->
+<meta property="instagram:card" content="summary_large_image">
+<meta property="instagram:url" content="{{ .Permalink }}">
+<meta property="instagram:title" content="{{ if .IsHome }}{{ .Site.Title }} - Unforgettable Travel Experiences{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}">
+<meta property="instagram:description" content="{{ if .Description }}{{ .Description }}{{ else }}Discover unforgettable travel experiences with Serendipity Tours.{{ end }}">
+{{ if .Params.image }}<meta property="instagram:image" content="{{ .Site.BaseURL }}{{ .Params.image }}">{{ end }}
 
 <!-- Structured Data / Schema.org -->
 {{ if eq .Type "tours" }}
@@ -149,3 +145,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+
+<!-- Google Analytics - Hardcoded for now -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B8DN32CX3Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-B8DN32CX3Z', {
+    'anonymize_ip': true
+  });
+</script>

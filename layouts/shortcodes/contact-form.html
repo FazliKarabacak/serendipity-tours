@@ -1,20 +1,14 @@
 <div class="bg-white p-8 rounded-lg shadow-md">
   <h2 class="text-2xl font-semibold mb-6 text-gray-700">Send Us a Message</h2>
   
-  <form action="https://formspree.io/f/xrbppvek" method="POST" class="space-y-6" id="contactForm">
-    <!-- Hidden fields for Formspree configuration -->
-    <input type="hidden" name="_replyto" value="info@serendipitytours.com.au">
-    <input type="hidden" name="_subject" value="New Tour Booking Inquiry">
-    <input type="hidden" name="_cc" value="info@serendipitytours.com.au">
-    
-    <!-- Thank you page redirect -->
-    <input type="hidden" name="_next" value="https://serendipitytours.com.au/thank-you">
-    <input type="hidden" name="_target" value="_blank">
+  <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="space-y-6" id="contactForm" action="/thank-you">
+    <!-- Netlify form configuration -->
+    <input type="hidden" name="form-name" value="contact">
+    <input type="hidden" name="subject" value="New Tour Booking Inquiry">
     
     <!-- Honeypot field for spam protection -->
-    <div style="display:none;">
-      <label for="hp">Leave this field empty</label>
-      <input type="text" name="_gotcha" id="hp">
+    <div hidden>
+      <label>Don't fill this out if you're human: <input name="bot-field" /></label>
     </div>
     
     <div>
@@ -118,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Update subject line with the specific tour
-    var subjectField = document.querySelector('input[name="_subject"]');
+    var subjectField = document.querySelector('input[name="subject"]');
     if (subjectField) {
       subjectField.value = 'New Booking Inquiry: ' + tourName;
     }

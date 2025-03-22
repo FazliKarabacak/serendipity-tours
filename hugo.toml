@@ -1,8 +1,9 @@
-baseURL = "http://serendipitytours.com.au/"
+baseURL = "https://serendipitytours.com.au/"
 languageCode = "en-us"
 title = "Serendipity Tours"
 theme = ""  # Leave empty if you're not using an external theme
 enableRobotsTXT = true
+googleAnalytics = "G-B8DN32CX3Z"  # Google Analytics ID here
 
 [params]
   description = "Explore unforgettable journeys with Serendipity Tours."
@@ -11,10 +12,3 @@ enableRobotsTXT = true
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
-
-
-# Add this to your hugo.toml file
-[services]
-  [services.googleAnalytics]
-    ID = "G-B8DN32CX3Z" # Replace with your actual measurement ID
-    anonymizeIP = true # Privacy enhancement
