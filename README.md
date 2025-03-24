@@ -72,6 +72,10 @@ serendipity-tours/
 
 4. View the site at http://localhost:1313/
 
+5. hugo --gc --minify 
+
+6. netlify deploy --prod
+
 ### Building for Production
 
 ```bash
