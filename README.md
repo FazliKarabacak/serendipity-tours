@@ -76,6 +76,12 @@ serendipity-tours/
 
 6. netlify deploy --prod
 
+7. git add .
+
+8. git commit -m "" 
+
+9. git push origin master
+
 ### Building for Production
 
 ```bash
